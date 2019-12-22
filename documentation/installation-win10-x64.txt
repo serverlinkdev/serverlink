@@ -1,0 +1,158 @@
+                    =======================
+                    ServerLink Installation
+                    =======================
+
+
+Any version numbers shown below are known to work at this time.
+
+Serverlink Supported OS: Windows 10 v1909 64bit.
+
+--------------------------------------------------------------------------------
+
+Requirements:
+
+1. Install DB.Browser.for.SQLite-3.11.2-win32.msi from https://sqlitebrowser.org/
+
+Notes:
+    - none at the time of this writing
+
+2. Install OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.msi from https://adoptopenjdk.net/
+
+Notes:
+
+    - Use the OpenJDK 8 (LTS) version.  LTS means "Long Term Support".
+
+    - During installation:
+
+        (a) The installer defaults to "Add to Path" and "Associate .jar".  If you
+        have no other copies of java on your pc then this is a safe option.  If
+        you are a developer, then selecting this option might interfere with your
+        existing copie(s) of java.
+
+        (b) The default install location (assuming you have a "c" drive ) is:
+            C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\
+        This will be fine for serverlink.
+
+        (c) If you are a developing software the other options might be of
+        interest to you, but are not required for serverlink.
+
+    -  To verify your installation, assuming you had the same path as I do here,
+    you should now have a file called "java.exe" in the following location:
+        
+        C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin
+    
+    Your version numbers in the above will be different if you use a version of
+    java released after the date of this writing.
+
+    It is important that you have this file.  If you cannot find this file you
+    cannot proceed.
+
+3.  Get a copy of the serverlink software.  You can place it anywhere on your
+hard drive, including your desktop.  It does not require any administrative
+priveledges.
+
+4.  For this example, we will have a copy at c:\serverlink
+
+    You should have the folllowing files:
+
+    - ServerLink.DB     (This is your new database file)
+    - ServerLink.ini    (This is your serverlink config file)
+    - serverlink-1.0.0.winx64.openjdk.8u232b09.jar (this is the serverlink software)
+
+--------------------------------------------------------------------------------
+
+                        ServerLink Configuration
+                        ========================
+
+1.  Generate Admin account user and password for database:
+
+The original serverlink software does not have a working implementation to
+create the db admin username and password.  The db file that you downloaded
+will have to be edited by hand using the "DB Browser for SQLite" we installed
+earlier.
+
+- Doubleclick on the ServerLink.db (You might have to tell Windows 10 to use
+the "DB Browser for SQLite" to open the file, if so it's most likely located
+in C:\Program Files (x86)\DB Browser for SQLite)
+
+- In "DB Browser for SQLite" click on the "Browse Data" tab.
+
+- Near upper left of the program window select "ServerAccount" from the "Table"
+drop down.
+
+- You will need to enter your db admin's accountId, username, passwordHash
+and salt values here. TODO:  add documentation how to get these variables.
+
+- Once Completed, click on "Write Changes" and then "Close Database"
+
+2.  Edit UT2004.ini:
+
+We need to verify that the ServerLink section of your UT2004.ini file refelect
+the above:
+
+[3SPNv3228D.TeamArenaMaster]
+ServerLinkStatus=SL_ENABLED
+ServerLinkAddress=127.0.0.1     <---- See note below
+ServerLinkPort=9090             <---- 9090 is serverlink's default. If you
+                                      change this, be sure ServerLink.ini 
+                                      reflects this (see next section).
+ServerLinkAccount=              <---- put db admin username here
+ServerLinkPassword=             <---- put db admin password (not hash) here
+
+NOTE:  The master serverlink software allows serverlink to listen to BOTH the
+local or public internet.  This will most likely be changed in future releases
+to only be local (127.0.0.1), but has not been modified at this time, 20191221.
+If you're running serverlink on the same physical pc as the game server, I
+recommend using 127.0.0.1 loopback local interface, as that is what we'll be
+using down the road.
+
+3.  Edit ServerLink.ini:
+
+[ServerLink]
+port = 9090                             <---- should match UT2004.ini, 9090 is
+                                              serverlink default value
+thread_pool = 16
+database_options = ServerLink.db        <---- name of your database file
+allow_anonymous = false
+
+4.  Start the serverlink server:
+
+Most likely you are using Windows Explorer as your file manager, and are viewing
+the contents of "C:\serverlink" folder.
+
+In the address bar of Windows Explorer, type in the location bar: "cmd.exe"
+and a Windows console should open.
+
+Verify that your console is in same directory as explorer by typing "dir" into
+console, and you should see all the serverlink files.
+
+It you are not seeing those files, then try in console:
+cd C:\serverlink
+
+Your console should show:
+    C:\serverlink>
+
+Remember during installation I told you that you needed the location of "java.exe"
+Well now we will use it by putting the following commandline into the Windows
+Console Window (be sure to keep the quotation marks):
+
+"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.0.winx64.openjdk.8u232b09.jar ServerLink.ini 
+
+If successful, you should see this:
+{ServerLink=[{port=[9090], thread_pool=[16], database_options=[ServerLink.db], allow_anonymous=[false]}]}
+ServerLink - Starting on 9090.
+ServerLink - Starting with 16 threads.
+
+5.  Start Unreal Tournament 2004 game server the way you always do.
+
+6.  Profit!
+
+--------------------------------------------------------------------------------
+
+                        Conclusion
+                        ==========
+
+Now that you have finished your installation.  You might want to consider
+putting the Windows Console commands into a Windows Batch Script File.
+
+That is beyond the scope of this tutorial.

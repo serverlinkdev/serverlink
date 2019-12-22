@@ -1,0 +1,16 @@
+1. Write code to generate db admin, db admin password hash, db admin salt
+2. Edit installation-win10-x64.txt on how to get item 1 above.
+
+3. Add serverlink version to ServerLink.db
+4. Add more try/catch to test existence and if necessary to fail with user
+friendly information for fail to find:
+  - ServerLink.db
+  - ServerLink.ini
+  - ServerLink.db version mismatch
+
+5.  Remove ability to listen to public internet.  Use 127.0.0.1 local loopback.
+6.  Edit doc's for use of loopback only.
+7.  Edit ServerLink.ini for loopback only.
+
+8.  Edit gradle so we output binary name similar to:
+serverlink-1.0.0.winx64.openjdk.8u232b09.jar 
