@@ -1,0 +1,31 @@
+
+apply plugin: 'java'
+
+version = '1.0.0';
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+jar {
+	from {
+		configurations.compile.collect {
+			it.isDirectory() ? it : zipTree(it)
+		}
+		configurations.runtime.collect {
+			it.isDirectory() ? it : zipTree(it)
+		}
+	}
+	manifest {
+		attributes 'Implementation-Title': 'ServerLink',
+				'Implementation-Version': version,
+				'Built-By': System.getProperty('user.name'),
+				'Built-Date': new Date(),
+				'Built-JDK': System.getProperty('java.version'),
+				'Main-Class': 'org.uigl.ut2004.serverlink.ServerLinkApplication'
+	}
+}
+
+dependencies {
+	compile group: "org.ini4j", name: "ini4j", version: "0.5.4"
+	compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.15.1'
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
+}
