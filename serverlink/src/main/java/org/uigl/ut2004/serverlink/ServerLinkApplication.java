@@ -15,21 +15,47 @@ public class ServerLinkApplication {
     private static final int DEFAULT_THREADS = 16;
 
     public static void main(String[] argv) throws IOException {
+        String helpInfo="- If this is your first time using serverlink\n" +
+                           "run this program again as: \n\n" +
+                           "    'java -jar serverlink-1.0.0-win10x64-openjdk1.8.0_152.jar wizard'\n\n" +
+                           "- If you are running this on an existing installation \n" +
+                           "run this program as: \n\n" +
+                           "    'java -jar serverlink.jar Serverlink.ini ServerLink.db'\n";
 
-        final boolean[] shuttingDown = {false};
+        if ((argv.length == 2) && (!( (argv[0].equals("ServerLink.ini")) && (argv[1].equals("ServerLink.db")))))
+        {
+            System.out.println("at 1");
+            System.out.println("\nYour command line arguments are wrong.\n\n" + helpInfo);
+            System.exit(0);
+        } else if ((argv.length == 1) && (argv[0].equals("wizard"))) {
+            System.out.println("wizard was requested at 2");
+            //TODO add wizard code
+            System.exit(-1);
+        } else if ((argv.length ==1) && (!argv[0].equals("wizard"))){
+            System.out.println("\nYour command line arguments are wrong.\n\n" + helpInfo);
+            System.out.println("at 3");
+            System.exit(0);
+        } else if (argv.length == 0) {
+            System.out.println("\nWelcome to ServerLink!\n\n" + helpInfo);
+            System.out.println("at 4");
+            System.exit(0);
+        }
+        System.out.println("I would continue");
 
         File configFile = new File("ServerLink.ini");
-
         if (argv.length > 0) {
             configFile = new File(argv[0]);
         }
 
         if (!configFile.exists()) {
             if (!configFile.createNewFile()) {
+                //TODO the config file gets created if one not exist... but it doesnt fill a default db name and hence
+                // serverlink crashes.  FIXME
                 System.out.println("Unable to create config file.");
                 return;
             }
         }
+//        System.exit(0);
 
         Wini config = new Wini(configFile);
 
@@ -73,6 +99,8 @@ public class ServerLinkApplication {
 
         System.out.println("ServerLink - Starting with " + threadPool + " threads.");
         final ExecutorService executorService = Executors.newFixedThreadPool(threadPool);
+
+        final boolean[] shuttingDown = {false};
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override

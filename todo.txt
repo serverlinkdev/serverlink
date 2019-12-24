@@ -1,6 +1,6 @@
-0. Write tutorial how to compile.
+0 -  on create new config, add default database name else we crash
 0.1 Add db backup
-1. Write code to generate db admin, db admin password hash, db admin salt
+1. Write wizard code to generate db admin, db admin password hash, db admin salt
 2. Edit installation-win10-x64.txt on how to get item 1 above.
 
 3. Add serverlink version to ServerLink.db
