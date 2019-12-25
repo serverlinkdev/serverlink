@@ -11,7 +11,8 @@ license specified for the original "ServerLinkPublic" code by github user
 
 Compiling and/or Installation:
 
-Grab binary build from releases folder.
+Grab the jar, db and ini files from the releases folder here, and put
+them all into the same folder.
 
 Linux:
 Review the contents of the service folder and "documentation" folder.

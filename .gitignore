@@ -9,4 +9,3 @@
 build/
 hs_err_pid*
 keystore.jks
-ServerLink.db

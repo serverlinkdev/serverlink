@@ -47,9 +47,10 @@ Notes:
     It is important that you have this file.  If you cannot find this file you
     cannot proceed.
 
-3.  Get a copy of the serverlink software.  You can place it anywhere on your
-hard drive, including your desktop.  It does not require any administrative
-priveledges.
+3.  Get a copy of the serverlink software from the github repo releases folder.
+You can place it anywhere on your hard drive, including your desktop.  It does
+not require any administrative priveledges.  Also be sure to download from
+releases the ServerLink.DB and ServerLink.ini files.
 
 4.  For this example, we will have a copy at c:\serverlink
 
@@ -57,7 +58,7 @@ priveledges.
 
     - ServerLink.DB     (This is your new database file)
     - ServerLink.ini    (This is your serverlink config file)
-    - serverlink-1.0.0.winx64.openjdk.8u232b09.jar (this is the serverlink software)
+    - serverlink-1.0.0-win10x64-openjdk1.8.0_152.jar (this is the serverlink software)
 
 --------------------------------------------------------------------------------
 
@@ -66,10 +67,24 @@ priveledges.
 
 1.  Generate Admin account user and password for database:
 
-The original serverlink software does not have a working implementation to
-create the db admin username and password.  The db file that you downloaded
-will have to be edited by hand using the "DB Browser for SQLite" we installed
-earlier.
+This new forked version now includes a wizard to generate the database
+admin username, passwordHash and salt.  You will take these values
+and manually put them into the ServerLink.db database.
+
+Hopefully in time we will further enhance serverlink to automate the
+database editing.
+
+NOTE:  if you get confused, serverlink can print some help on the console, if
+you run the application with no other arguments:
+
+Open windows command prompt, and run:
+"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.0-win10x64-openjdk1.8.0_152.jar
+
+Open windows command prompt, and start the wizard with:
+"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.0-win10x64-openjdk1.8.0_152.jar wizard
+
+Now we will edit the database by hand using the "DB Browser for SQLite" we
+installed earlier.
 
 - Doubleclick on the ServerLink.db (You might have to tell Windows 10 to use
 the "DB Browser for SQLite" to open the file, if so it's most likely located
@@ -81,7 +96,7 @@ in C:\Program Files (x86)\DB Browser for SQLite)
 drop down.
 
 - You will need to enter your db admin's accountId, username, passwordHash
-and salt values here. TODO:  add documentation how to get these variables.
+and salt values here that you received from the wizard.
 
 - Once Completed, click on "Write Changes" and then "Close Database"
 
@@ -100,11 +115,11 @@ ServerLinkAccount=              <---- put db admin username here
 ServerLinkPassword=             <---- put db admin password (not hash) here
 
 NOTE:  The master serverlink software allows serverlink to listen to BOTH the
-local or public internet.  This will most likely be changed in future releases
-to only be local (127.0.0.1), but has not been modified at this time, 20191221.
-If you're running serverlink on the same physical pc as the game server, I
-recommend using 127.0.0.1 loopback local interface, as that is what we'll be
-using down the road.
+local or public internet.  This might be altered in future releases
+to only be local (127.0.0.1) or public via a configuration option, but has not
+been modified at this time, 20191221.  If you're running serverlink on the 
+same physical pc as the game server, I recommend using 127.0.0.1 loopback local
+interface if you can.
 
 3.  Edit ServerLink.ini:
 
@@ -136,7 +151,7 @@ Remember during installation I told you that you needed the location of "java.ex
 Well now we will use it by putting the following commandline into the Windows
 Console Window (be sure to keep the quotation marks):
 
-"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.0.winx64.openjdk.8u232b09.jar ServerLink.ini 
+"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.0-win10x64-openjdk1.8.0_152.jar ServerLink.ini ServerLink.db
 
 If successful, you should see this:
 {ServerLink=[{port=[9090], thread_pool=[16], database_options=[ServerLink.db], allow_anonymous=[false]}]}
@@ -145,7 +160,11 @@ ServerLink - Starting with 16 threads.
 
 5.  Start Unreal Tournament 2004 game server the way you always do.
 
-6.  Profit!
+6.  Statistics will not be shown until a match has been played to its entirety
+and the game server changes maps.  The second match should have the stats
+working properly.
+
+7.  Profit.  gl hf!
 
 --------------------------------------------------------------------------------
 
