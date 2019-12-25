@@ -10,3 +10,4 @@ build/
 hs_err_pid*
 *.log
 ServerLink.db
+as-given-to-vapor-for-ru-server/

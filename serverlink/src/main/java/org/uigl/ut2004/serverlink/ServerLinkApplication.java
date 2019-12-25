@@ -2,9 +2,9 @@ package org.uigl.ut2004.serverlink;
 
 import java.io.*;
 import java.net.ServerSocket;
+import java.net.URISyntaxException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import org.ini4j.Wini;
 import org.uigl.ut2004.serverlink.database.DatabaseRepositoryProvider;
 import org.uigl.ut2004.serverlink.database.SQLiteDatabaseRepositoryImpl;
@@ -14,33 +14,60 @@ public class ServerLinkApplication {
     private static final int DEFAULT_PORT = 9090;
     private static final int DEFAULT_THREADS = 16;
 
-    public static void main(String[] argv) throws IOException {
+   public static void main(String[] argv) throws IOException, URISyntaxException {
+
         String helpInfo="- If this is your first time using serverlink\n" +
                            "run this program again as: \n\n" +
                            "    'java -jar serverlink-1.0.0-win10x64-openjdk1.8.0_152.jar wizard'\n\n" +
                            "- If you are running this on an existing installation \n" +
                            "run this program as: \n\n" +
-                           "    'java -jar serverlink.jar Serverlink.ini ServerLink.db'\n";
+                           "    'java -jar serverlink.jar Serverlink.ini ServerLink.db'\n\n" +
+                           "Your config file must end with '.ini' and your database must end with '.db'\n" +
+                           "Your config file and database file must be in same directory as serverlink jar file";
 
-        if ((argv.length == 2) && (!( (argv[0].equals("ServerLink.ini")) && (argv[1].equals("ServerLink.db")))))
-        {
-            System.out.println("at 1");
-            System.out.println("\nYour command line arguments are wrong.\n\n" + helpInfo);
+        if (argv.length == 0) {
+            System.out.println("\nWelcome to ServerLink!\n\n" + helpInfo);
             System.exit(0);
         } else if ((argv.length == 1) && (argv[0].equals("wizard"))) {
-            System.out.println("wizard was requested at 2");
+            System.out.println("wizard was requested");
             //TODO add wizard code
-            System.exit(-1);
-        } else if ((argv.length ==1) && (!argv[0].equals("wizard"))){
+            System.exit(0);
+        }  else if ((argv.length == 2) && (!( (argv[0].endsWith(".ini")) && (argv[1].endsWith(".db"))))){
+            System.out.println("\nFAIL:  Your command line arguments are wrong.\n\n" + helpInfo);
+            System.exit(1);
+        } else if ((argv.length == 2) && (( (argv[0].endsWith(".ini")) && (argv[1].endsWith(".db"))))){
+            // jarPath = URLDecoder.decode(String.valueOf(jarPathEncoded), "UTF-8"); // use if on non utf-8 plaform
+
+            // Get full folder path to the jar file:
+            String jarParent = new File(ServerLinkApplication.class.getProtectionDomain().getCodeSource().
+                                       getLocation().toURI()).getParent();
+
+            // Get file path for the users ini file:
+            String iniPath = new StringBuilder(jarParent + "\\" + argv[0]).toString();
+            File iniFile = new File(iniPath);
+
+            // Get file path for the users db file:
+            String dbPath = new StringBuilder(jarParent + "\\" + argv[1]).toString();
+            File dbFile = new File(dbPath);
+
+            if (!iniFile.exists()){
+                System.out.println("\nFAIL:  Your .ini file was not found!");
+                System.out.println("\nYour command line arguments are wrong.\n\n" + helpInfo);
+                System.exit(1);
+            }
+            if (!dbFile.exists()){
+                System.out.println("\nFAIL:  Your .db file was not found!");
+                System.out.println("\nYour command line arguments are wrong.\n\n" + helpInfo);
+                System.exit(1);
+            }
+            System.out.println("\nSUCCESS:  Your command line arguments are valid! GL HF!\n\n");
+        } else {
             System.out.println("\nYour command line arguments are wrong.\n\n" + helpInfo);
-            System.out.println("at 3");
-            System.exit(0);
-        } else if (argv.length == 0) {
-            System.out.println("\nWelcome to ServerLink!\n\n" + helpInfo);
-            System.out.println("at 4");
-            System.exit(0);
+            System.exit(1);
         }
-        System.out.println("I would continue");
+
+//        System.out.println("I would continue");
+//            System.exit(0);
 
         File configFile = new File("ServerLink.ini");
         if (argv.length > 0) {
