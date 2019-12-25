@@ -11,6 +11,8 @@ license specified for the original "ServerLinkPublic" code by github user
 
 Compiling and/or Installation:
 
+Grab binary build from releases folder.
+
 Linux:
 Review the contents of the service folder and "documentation" folder.
 
