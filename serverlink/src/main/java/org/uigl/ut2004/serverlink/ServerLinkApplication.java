@@ -8,13 +8,14 @@ import java.util.concurrent.Executors;
 import org.ini4j.Wini;
 import org.uigl.ut2004.serverlink.database.DatabaseRepositoryProvider;
 import org.uigl.ut2004.serverlink.database.SQLiteDatabaseRepositoryImpl;
+import org.uigl.ut2004.serverlink.exception.AuthenticationException;
 
 public class ServerLinkApplication {
 
     private static final int DEFAULT_PORT = 9090;
     private static final int DEFAULT_THREADS = 16;
 
-   public static void main(String[] argv) throws IOException, URISyntaxException {
+   public static void main(String[] argv) throws IOException, URISyntaxException, AuthenticationException {
 
         String helpInfo="- If this is your first time using serverlink\n" +
                            "run this program again as: \n\n" +
@@ -31,6 +32,8 @@ public class ServerLinkApplication {
         } else if ((argv.length == 1) && (argv[0].equals("wizard"))) {
             System.out.println("wizard was requested");
             //TODO add wizard code
+            Wizard wizard = new Wizard();
+            wizard.questionnaire();
             System.exit(0);
         }  else if ((argv.length == 2) && (!( (argv[0].endsWith(".ini")) && (argv[1].endsWith(".db"))))){
             System.out.println("\nFAIL:  Your command line arguments are wrong.\n\n" + helpInfo);

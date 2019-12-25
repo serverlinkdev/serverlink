@@ -283,14 +283,7 @@ public class SQLiteDatabaseRepositoryImpl implements DatabaseRepository {
                 throw new AuthenticationException();
             }
         }
-        // piggy FIXME admin never gets created and anonymous fails.  Add print lines here so we can spam
-        // all admin credentials to console, we then take that and fill in database by hand, restart serverlink
-        // and profit for now  til' we get this right
-        System.out.println("account id is: " + account.getAccountId().toString());
-        System.out.println("password is: " + password);
-        System.out.println("salt is : " + account.getSalt());
         String passwordHash = DigestUtils.sha1Hex(password + account.getSalt());
-        System.out.println("password hash is: " + passwordHash);
 
         if (!account.getPasswordHash().equals(passwordHash)) {
             throw new AuthenticationException();
@@ -312,5 +305,20 @@ public class SQLiteDatabaseRepositoryImpl implements DatabaseRepository {
         mServersIdMapping.put(account.getAccountId(), account);
 
         return account.getAccountId();
+    }
+
+    public void genAdminCredentials(String username, String password) throws AuthenticationException {
+        username = username.replace('\'', '"');
+        password = password.replace('\'', '"');
+
+        ServerAccount account = mServers.get(username);
+        boolean create = false;
+
+        account = new ServerAccount(UUID.randomUUID(), username, password, new BigInteger(130, mSecureRandom).toString(32));
+        System.out.println("account id is: " + account.getAccountId().toString());
+        System.out.println("password is: " + password);
+        System.out.println("salt is : " + account.getSalt());
+        String passwordHash = DigestUtils.sha1Hex(password + account.getSalt());
+        System.out.println("password hash is: " + passwordHash);
     }
 }
