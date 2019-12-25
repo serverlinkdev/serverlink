@@ -1,6 +1,6 @@
 # ServerLinkPublic
 
-Unreal Tournament 2004 (UT2004) TAM/AM/FREON/CW ServerLink Statistics Database Server Software
+Unreal Tournament 2004 (UT2004) TAM/AM/FREON/CW ServerLink Statistics Database Server Software as used by 3SPN
 
 A fork of the original project hosted at:
 https://github.com/ravenchild/ServerLinkPublic
