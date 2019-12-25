@@ -1,8 +1,6 @@
-0 -  on create new config, add default database name else we crash
-0.1 Add db backup
-1. Write wizard code to generate db admin, db admin password hash, db admin salt
-2. Edit installation-win10-x64.txt on how to get item 1 above.
-
+0. on create new config, add default database name else we crash
+1. have wizard enter admin credentials into ServerLink.db
+2.Add db backup
 3. Add serverlink version to ServerLink.db
 4. Add more try/catch to test existence and if necessary to fail with user
 friendly information for fail to find:
