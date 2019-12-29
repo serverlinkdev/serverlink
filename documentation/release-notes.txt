@@ -1,0 +1,11 @@
+When making new rel's:
+
+edit:
+src/build.gradle:
+    version = '1.0.1-win10x64-openjdk1.8.0_152';
+
+edit:
+documentation/installation-win10-x64.txt
+
+copy new jar from:
+serverlink/builds/libs to serverlink/releases/version

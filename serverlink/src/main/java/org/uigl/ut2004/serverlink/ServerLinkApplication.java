@@ -1,14 +1,16 @@
 package org.uigl.ut2004.serverlink;
 
-import java.io.*;
-import java.net.ServerSocket;
-import java.net.URISyntaxException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import org.ini4j.Wini;
 import org.uigl.ut2004.serverlink.database.DatabaseRepositoryProvider;
 import org.uigl.ut2004.serverlink.database.SQLiteDatabaseRepositoryImpl;
 import org.uigl.ut2004.serverlink.exception.AuthenticationException;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.URISyntaxException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ServerLinkApplication {
 
@@ -16,13 +18,22 @@ public class ServerLinkApplication {
     private static final int DEFAULT_THREADS = 16;
 
    public static void main(String[] argv) throws IOException, URISyntaxException, AuthenticationException {
+       System.out.println("    _____                                _       _         _    ");
+       System.out.println("   / ____|                              | |     (_)       | |   ");
+       System.out.println("  | (___    ___  _ __ __   __ ___  _ __ | |      _  _ __  | | __");
+       System.out.println("   \\___ \\  / _ \\| '__|\\ \\ / // _ \\| '__|| |     | || '_ \\ | |/ /");
+       System.out.println("   ____) ||  __/| |    \\ V /|  __/| |   | |____ | || | | ||   < ");
+       System.out.println("  |_____/  \\___||_|     \\_/  \\___||_|   |______||_||_| |_||_|\\_\\");
+       System.out.println("                                                                ");
+       System.out.println("\tBrought to you by the UT2004/UT99 Community\n\t" +
+               "  Visit us at https://discord.gg/tuzcxqW\n");
 
-        String helpInfo="- If this is your first time using serverlink\n" +
+       String helpInfo="- If this is your first time using serverlink\n" +
                            "run this program again as: \n\n" +
-                           "    'java -jar serverlink-1.0.0-win10x64-openjdk1.8.0_152.jar wizard'\n\n" +
+                           "    'java -jar serverlink-1.0.1-win10x64-openjdk1.8.0_152.jar wizard'\n\n" +
                            "- If you are running this on an existing installation \n" +
                            "run this program as: \n\n" +
-                           "    'java -jar serverlink.jar Serverlink.ini ServerLink.db'\n\n" +
+                           "    'java -jar serverlink.jar ServerLink.ini ServerLink.db'\n\n" +
                            "Your config file must end with '.ini' and your database must end with '.db'\n" +
                            "Your config file and database file must be in same directory as serverlink jar file";
 

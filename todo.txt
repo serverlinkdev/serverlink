@@ -1,6 +1,6 @@
 0. on create new config, add default database name else we crash
 1. have wizard enter admin credentials into ServerLink.db
-2.Add db backup
+2. Add db backup
 3. Add serverlink version to ServerLink.db
 4. Add more try/catch to test existence and if necessary to fail with user
 friendly information for fail to find:
@@ -11,6 +11,3 @@ friendly information for fail to find:
 5.  Add config option to remove ability to listen to public internet.  Use 127.0.0.1 local loopback.
 6.  Edit doc's for use of loopback only.
 7.  Edit ServerLink.ini for loopback only.
-
-8.  Edit gradle so we output binary name similar to:
-serverlink-1.0.0.winx64.openjdk.8u232b09.jar 

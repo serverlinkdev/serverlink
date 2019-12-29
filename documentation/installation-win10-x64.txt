@@ -58,7 +58,7 @@ releases the ServerLink.DB and ServerLink.ini files.
 
     - ServerLink.DB     (This is your new database file)
     - ServerLink.ini    (This is your serverlink config file)
-    - serverlink-1.0.0-win10x64-openjdk1.8.0_152.jar (this is the serverlink software)
+    - serverlink-1.0.1-win10x64-openjdk1.8.0_152.jar (this is the serverlink software)
 
 --------------------------------------------------------------------------------
 
@@ -151,7 +151,7 @@ Remember during installation I told you that you needed the location of "java.ex
 Well now we will use it by putting the following commandline into the Windows
 Console Window (be sure to keep the quotation marks):
 
-"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.0-win10x64-openjdk1.8.0_152.jar ServerLink.ini ServerLink.db
+"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.1-win10x64-openjdk1.8.0_152.jar ServerLink.ini ServerLink.db
 
 If successful, you should see this:
 {ServerLink=[{port=[9090], thread_pool=[16], database_options=[ServerLink.db], allow_anonymous=[false]}]}
