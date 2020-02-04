@@ -11,3 +11,20 @@ friendly information for fail to find:
 5.  Add config option to remove ability to listen to public internet.  Use 127.0.0.1 local loopback.
 6.  Edit doc's for use of loopback only.
 7.  Edit ServerLink.ini for loopback only.
+8. Make paths platform independant:
+
+example:
+        String jarParent = new File(App.class.getProtectionDomain()
+                .getCodeSource().getLocation().toURI()).getParent();
+        File configFile = new File("config.properties");
+        // Default is for user to have config in same dir as this bots jar file:
+        new File(jarParent);
+        File configDir;
+        if (argv.length == 1) {
+            // In case user passed a forward/backslash on cmd line
+            configDir = new File(argv[0].toString());
+            System.out.println("INFO: configDir passed is: " +configDir);
+        }
+        configDir = new File(argv[0].toString());
+        configFile = new File(configDir + File.separator + configFile);
+        
