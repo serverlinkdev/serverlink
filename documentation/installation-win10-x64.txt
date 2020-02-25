@@ -17,6 +17,7 @@ Notes:
     - none at the time of this writing
 
 2. Install OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.msi from https://adoptopenjdk.net/
+or whatever latest version of the 8 series is there.
 
 Notes:
 
@@ -58,7 +59,7 @@ releases the ServerLink.DB and ServerLink.ini files.
 
     - ServerLink.DB     (This is your new database file)
     - ServerLink.ini    (This is your serverlink config file)
-    - serverlink-1.0.1-win10x64-openjdk1.8.0_152.jar (this is the serverlink software)
+    - serverlink-1.0.2-win10x64-openjdk1.8.0.242.08.jar (this is the serverlink software)
 
 --------------------------------------------------------------------------------
 
@@ -78,10 +79,10 @@ NOTE:  if you get confused, serverlink can print some help on the console, if
 you run the application with no other arguments:
 
 Open windows command prompt, and run:
-"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.0-win10x64-openjdk1.8.0_152.jar
+"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.2-win10x64-openjdk1.8.0.242.08.jar
 
 Open windows command prompt, and start the wizard with:
-"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.0-win10x64-openjdk1.8.0_152.jar wizard
+"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.2-win10x64-openjdk1.8.0.242.08.jar wizard
 
 Now we will edit the database by hand using the "DB Browser for SQLite" we
 installed earlier.
@@ -151,7 +152,7 @@ Remember during installation I told you that you needed the location of "java.ex
 Well now we will use it by putting the following commandline into the Windows
 Console Window (be sure to keep the quotation marks):
 
-"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.1-win10x64-openjdk1.8.0_152.jar ServerLink.ini ServerLink.db
+"C:\Program Files\AdoptOpenJDK\jdk-8.0.232.09-hotspot\bin\java.exe" -jar serverlink-1.0.2-win10x64-openjdk1.8.0.242.08.jar ServerLink.ini ServerLink.db
 
 If successful, you should see this:
 {ServerLink=[{port=[9090], thread_pool=[16], database_options=[ServerLink.db], allow_anonymous=[false]}]}

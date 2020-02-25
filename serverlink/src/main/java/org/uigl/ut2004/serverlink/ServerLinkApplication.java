@@ -42,7 +42,6 @@ public class ServerLinkApplication {
             System.exit(0);
         } else if ((argv.length == 1) && (argv[0].equals("wizard"))) {
             System.out.println("wizard was requested");
-            //TODO add wizard code
             Wizard wizard = new Wizard();
             wizard.questionnaire();
             System.exit(0);
@@ -57,11 +56,11 @@ public class ServerLinkApplication {
                                        getLocation().toURI()).getParent();
 
             // Get file path for the users ini file:
-            String iniPath = new StringBuilder(jarParent + "\\" + argv[0]).toString();
+            String iniPath = new StringBuilder(jarParent + File.separator + argv[0]).toString();
             File iniFile = new File(iniPath);
 
             // Get file path for the users db file:
-            String dbPath = new StringBuilder(jarParent + "\\" + argv[1]).toString();
+            String dbPath = new StringBuilder(jarParent + File.separator + argv[1]).toString();
             File dbFile = new File(dbPath);
 
             if (!iniFile.exists()){

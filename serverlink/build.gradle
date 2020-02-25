@@ -1,7 +1,7 @@
 
 apply plugin: 'java'
 
-version = '1.0.1-win10x64-openjdk1.8.0_152';
+version = '1.0.2-win10x64-openjdk1.8.0.242.08';
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
@@ -17,7 +17,6 @@ jar {
 	manifest {
 		attributes 'Implementation-Title': 'ServerLink',
 				'Implementation-Version': version,
-				'Built-By': System.getProperty('user.name'),
 				'Built-Date': new Date(),
 				'Built-JDK': System.getProperty('java.version'),
 				'Main-Class': 'org.uigl.ut2004.serverlink.ServerLinkApplication'

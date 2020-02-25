@@ -11,7 +11,9 @@ friendly information for fail to find:
 5.  Add config option to remove ability to listen to public internet.  Use 127.0.0.1 local loopback.
 6.  Edit doc's for use of loopback only.
 7.  Edit ServerLink.ini for loopback only.
-8. Make paths platform independant:
+8.  Ref line 92 ServerLinkApplication.java
+TODO the config file gets created if one not exist... but it doesnt fill a 
+default db name and hence serverlink crashes
 
 example:
         String jarParent = new File(App.class.getProtectionDomain()
