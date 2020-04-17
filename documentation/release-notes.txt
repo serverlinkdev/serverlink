@@ -9,3 +9,5 @@ documentation/installation-win10-x64.txt
 
 copy new jar from:
 serverlink/builds/libs to serverlink/releases/version
+
+sign the files
