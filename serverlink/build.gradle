@@ -1,26 +1,21 @@
+plugins{
+	id 'application'
+}
 
-apply plugin: 'java'
+java {
+	sourceCompatibility = JavaVersion.VERSION_1_6
+	targetCompatibility = JavaVersion.VERSION_1_6
+}
 
-version = '1.0.2-win10x64-openjdk1.8.0.242.08';
-sourceCompatibility = 1.6
-targetCompatibility = 1.6
+application {
+	version = '1.0.3-win10x64-openjdk1.8.0.265.01'
+	mainClassName = 'org.uigl.ut2004.serverlink.ServerLinkApplication'
+}
 
-jar {
-	from {
-		configurations.compile.collect {
-			it.isDirectory() ? it : zipTree(it)
-		}
-		configurations.runtime.collect {
-			it.isDirectory() ? it : zipTree(it)
-		}
-	}
-	manifest {
-		attributes 'Implementation-Title': 'ServerLink',
-				'Implementation-Version': version,
-				'Built-Date': new Date(),
-				'Built-JDK': System.getProperty('java.version'),
-				'Main-Class': 'org.uigl.ut2004.serverlink.ServerLinkApplication'
-	}
+repositories {
+
+	maven { url "https://jcenter.bintray.com" }
+	maven { url "https://repo.maven.apache.org/maven2" }
 }
 
 dependencies {
@@ -28,3 +23,30 @@ dependencies {
 	compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.15.1'
 	compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
 }
+
+sourceSets {
+	main {
+		resources {
+			srcDirs "src/main/java/org/uigl/ut2004/license"
+		}
+	}
+}
+
+jar{
+	manifest{
+		attributes 'Implementation-Title': 'ServerLink',
+				'Implementation-Version': version,
+				'Built-Date': new Date(),
+				'Built-JDK': System.getProperty('java.version'),
+				'Main-Class': 'org.uigl.ut2004.serverlink.ServerLinkApplication'
+	}
+	// from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it)}}
+	from {
+		configurations
+				.compile
+				.findAll { !it.name.endsWith('pom') }
+				.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
+
+
