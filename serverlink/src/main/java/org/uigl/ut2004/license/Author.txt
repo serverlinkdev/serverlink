@@ -1,0 +1,2 @@
+Author/Owner of this forked ServerLink software: serverlinkdev@gmail.com
+as forked from user 'ravenchild' on github.com
