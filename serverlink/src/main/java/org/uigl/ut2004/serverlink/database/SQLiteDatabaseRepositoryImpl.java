@@ -42,7 +42,14 @@ public class SQLiteDatabaseRepositoryImpl implements DatabaseRepository {
 
             //Load memory stores for fast lookups.
 
-            ResultSet rs = mStatement.executeQuery("SELECT accountId, playerHash, COUNT(rowid) AS games, SUM(rounds) AS rounds, SUM(score) AS score, SUM(kills) AS kills, SUM(deaths) AS deaths, SUM(thaws) AS thaws, SUM(git) AS git FROM PlayerStat GROUP BY accountId, playerHash");
+//            ResultSet rs = mStatement.executeQuery("SELECT accountId, playerHash, COUNT(rowid) AS games, SUM(rounds) AS rounds, SUM(score) AS score, SUM(kills) AS kills, SUM(deaths) AS deaths, SUM(thaws) AS thaws, SUM(git) AS git FROM PlayerStat GROUP BY accountId, playerHash");
+            ResultSet rs = mStatement.executeQuery(
+                    "SELECT accountId, MAX(timestamp), playerName, playerHash, " +
+                            "COUNT(rowid) AS games, SUM(rounds) AS rounds, " +
+                            "SUM(score) AS score, SUM(kills) AS kills, " +
+                            "SUM(deaths) AS deaths, SUM(thaws) AS thaws, " +
+                            "SUM(git) AS git FROM PlayerStat " +
+                            "GROUP BY accountId, playerHash");
             while (rs.next()) {
                 PlayerAggregate playerAggregate = new PlayerAggregate(
                         rs.getInt("games"),
@@ -53,6 +60,7 @@ public class SQLiteDatabaseRepositoryImpl implements DatabaseRepository {
                         rs.getInt("thaws"),
                         rs.getInt("git")
                 );
+                playerAggregate.setLoggerPlayerName(rs.getString("playerName"));
                 UUID accountId = UUID.fromString(rs.getString("accountId"));
                 if (mServerToPlayerAggregate.get(accountId) == null) {
                     mServerToPlayerAggregate.put(accountId, new HashMap<String, PlayerAggregate>());
@@ -104,6 +112,7 @@ public class SQLiteDatabaseRepositoryImpl implements DatabaseRepository {
         playerAggregate.setDeaths(playerAggregate.getDeaths() + playerStat.getDeaths());
         playerAggregate.setThaws(playerAggregate.getThaws() + playerStat.getThaws());
         playerAggregate.setGit(playerAggregate.getGit() + playerStat.getGit());
+        playerAggregate.setLoggerPlayerName(playerStat.getPlayerName());
 
         try {
             mStatement.executeUpdate("INSERT INTO PlayerStat(accountId, mapId, timestamp, teamId, playerName, playerHash, rounds, score, kills, deaths, thaws, git) VALUES ('" + serverAccount.getAccountId().toString() + "','" + playerStat.getMapId() + "'," + playerStat.getTimestamp() + "," + playerStat.getTeamId() + ",'" + playerStat.getPlayerName() + "','" + playerStat.getPlayerHash() + "'," + playerStat.getRounds() + "," + playerStat.getScore() + "," + playerStat.getKills() + "," + playerStat.getDeaths() + "," + playerStat.getThaws() + "," + playerStat.getGit() + ");");

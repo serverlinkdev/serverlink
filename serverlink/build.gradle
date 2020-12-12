@@ -38,7 +38,8 @@ jar{
 				'Implementation-Version': version,
 				'Built-Date': new Date(),
 				'Built-JDK': System.getProperty('java.version'),
-				'Main-Class': 'org.uigl.ut2004.serverlink.ServerLinkApplication'
+				'Main-Class': 'org.uigl.ut2004.serverlink.ServerLinkApplication',
+				'License': "GPL V3.0"
 	}
 	// from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it)}}
 	from {

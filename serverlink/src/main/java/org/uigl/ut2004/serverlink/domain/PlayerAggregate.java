@@ -12,6 +12,7 @@ public class PlayerAggregate {
         this.mGit = git;
     }
 
+    private String mLoggerPlayerName = "serverLinkDefaultPlayerName";
     private int mGames;
     private int mRounds;
     private float mScore;
@@ -19,6 +20,14 @@ public class PlayerAggregate {
     private int mDeaths;
     private int mThaws;
     private int mGit;
+
+    public void setLoggerPlayerName(String LoggerPlayerName){
+        mLoggerPlayerName = LoggerPlayerName;
+    }
+
+    public String getLoggerPlayerName(){
+        return mLoggerPlayerName;
+    }
 
     public int getGames() {
         return mGames;

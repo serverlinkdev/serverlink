@@ -60,6 +60,12 @@ class ServerLinkHandler extends Thread {
                     continue;
                 }
 
+                // For internal use, this allows developer to see inbound
+                // communications as sent to ServerLink by 3SPN/UT2k4 Server.
+//                for (int i=0; i< params.length; i++){
+//                    System.out.println("INFO: inbound text was: " + params[i]);
+//                }
+
                 String command = params[0];
 
                 if (command.equals("LOGIN") && params.length == 3) {
@@ -156,7 +162,10 @@ class ServerLinkHandler extends Thread {
                 + (Math.max(0.0f, Math.min(1.0f, (playerPPR / 4f) - 1f) * 0.5f))
                 + ((playerAggregate.getGames() / 200) * 0.25f);
 
-        log("Player Stats: Rank:" + Float.toString(playerRank) + " PPR:" + Float.toString(playerPPR));
+//        log("Player Stats: Rank:" + Float.toString(playerRank) + " PPR:" + Float.toString(playerPPR));
+        log("Player name: " + playerAggregate.getLoggerPlayerName() +
+                ", Player Stats: Rank: " + Float.toString(playerRank) +
+                ", PPR: " + Float.toString(playerPPR));
 
         send(out,
                 "STATS_UPDATE",
