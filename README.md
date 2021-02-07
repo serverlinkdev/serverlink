@@ -14,6 +14,9 @@ Compiling and/or Installation:
 Grab the jar, db and ini files from the releases folder here, and put
 them all into the same folder.
 
+YouTube Video Tutorial on how to install this software:
+https://www.youtube.com/watch?v=xZXgJogfnKc
+
 Linux:
 Review the contents of the service folder and "documentation" folder.
 
@@ -22,11 +25,6 @@ Review the documentation in the "documentation" folder.
 
 Roadmap:
 Review the contents of todo.txt
-
-Support:
-Visit the UT2004/UT99 Discord Community:
-https://discord.gg/tuzcxqW
-
 
 Releases as of 4/17/20 will be signed with the following key:
 
