@@ -1,5 +1,7 @@
 # ServerLinkPublic
 
+For support, you can join my discord channel at https://discord.gg/XZUrutUEpn
+
 Unreal Tournament 2004 (UT2004) TAM/AM/FREON/CW ServerLink Statistics Database Server Software as used by 3SPN
 
 A fork of the original project hosted at:
