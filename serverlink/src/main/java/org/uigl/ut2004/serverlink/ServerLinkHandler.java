@@ -15,6 +15,7 @@ import java.net.Socket;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
+import java.util.Date;
 
 class ServerLinkHandler extends Thread {
 
@@ -119,8 +120,12 @@ class ServerLinkHandler extends Thread {
             throw new AuthenticationException();
         }
 
-        log("Login:" + username + ":" + password + " from " + mSocket.getInetAddress());
-
+        // Get the timestamp the login from the game server came in and print to the log line.
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
+        String strDate = formatter.format(date);
+        log("Login:" + username + " from " + mSocket.getInetAddress() + " at " + strDate);
+ 
         UUID accountId = DatabaseRepositoryProvider.getDatabaseInstance().getServerAccountId(username, password, mAllowAnonymous);
         mServerAccount = DatabaseRepositoryProvider.getDatabaseInstance().getServerAccount(accountId);
 
@@ -156,7 +161,10 @@ class ServerLinkHandler extends Thread {
                 + (Math.max(0.0f, Math.min(1.0f, (playerPPR / 4f) - 1f) * 0.5f))
                 + ((playerAggregate.getGames() / 200) * 0.25f);
 
-        log("Player Stats: Rank:" + Float.toString(playerRank) + " PPR:" + Float.toString(playerPPR));
+//        log("Player Stats: Rank:" + Float.toString(playerRank) + " PPR:" + Float.toString(playerPPR));
+        log("Player name: " + playerAggregate.getLoggerPlayerName() +
+                ", Player Stats: Rank: " + Float.toString(playerRank) +
+                ", PPR: " + Float.toString(playerPPR));
 
         send(out,
                 "STATS_UPDATE",
