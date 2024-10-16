@@ -16,9 +16,6 @@ Compiling and/or Installation:
 Grab the jar, db and ini files from the releases folder here, and put
 them all into the same folder.
 
-YouTube Video Tutorial on how to install this software:
-https://www.youtube.com/watch?v=xZXgJogfnKc
-
 Linux:
 Review the contents of the service folder and "documentation" folder.
 
